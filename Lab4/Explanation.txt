@@ -1,0 +1,26 @@
+Part 1:
+    For the part 1, the parent will prompt the user to enter a command (like "ls -l") and store it into an array of character variable.
+    Then the program will first compare the input with the keyword "quit": if it's equal to "quit" then the program will shutdown, else it will
+    split the input with whitespace and store it into an another array (call it array with the command).
+    After that the parent will create a child process and wait for it to finished.
+    In the child process, it will take the array with the command and execute it using the exec family function, the one i used is execvp.
+    Once the child process finished executing the command it will return the result and terminate.
+    As we back in the parent process, we'll first clear out the array with the command, and then prompt the user to enter another command.
+    This process will repeat until user enter "quit".
+
+
+Part 2:
+    For the part 2, first we will prompt the user to enter the number of chapter and homework per chapter, and store it into a variable say X and Y.
+    We'll then create a 2D matrix that will store the data read from the source file(file that contains the grade received by every(10) student for each homework).
+    Then since each manager handels each chapter, and each worker handels each homework. 
+    It means will be have total number of manager = total number of chapter = X, and total number of worker = total number of homework = Y.
+    As one chapter has Y number of homework, one manager will have Y number of workers. In other word one process will have Y number of child process.
+
+    Keeping that in mind, first we'll create a child call it Manager who will handels the first chapter (i.e. the 1st Y collumn of the 2D matirx), then we'll create a 
+    child process, call it worker 1 who will handels the 1st collumn of the 1st Y collumns'. This worker will go over each data of that collumn and takes the average and 
+    stores in an array call averages. Similarly, we'll have Y number's of worker process which will handels each collumn, and find the average and store in the array average.
+
+    After we finished finding the average of first Y's collumn, we'll terminate the Manager process we created earlier and then create new Manager process which will
+    follow the same steps as the ealier Manager did.
+
+    When the X number of Manager finished finding its respective average. The main program will terminate.

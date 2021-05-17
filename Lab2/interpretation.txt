@@ -1,0 +1,77 @@
+We have a initial value of a = 10 and b = 25 in the process P.
+
+when we call the fork system call we create a new child process of P process, and we supposed this process be named Q.
+
+Inside the process Q (since it being the child of P) has its own copy of the variable "a" and "b".
+but we change the value of "a" by adding it with the value of "b" making 
+a = 10 + 25
+  = 35
+
+and "b" to 
+b = b + 15
+  = 25 + 15
+  =40
+
+Similarly, we created another child process of P process using the fork system call and named it R process.
+
+Inside this process we changed the value of "a":
+a = a * b + 20
+  = 35 * 25 + 20
+  = 875 + 20
+  = 895
+
+
+  graphically:
+
+    ---------------------
+    |    Initial value   |   
+    |--------------------|
+    |     a = 10         |
+    |     b = 25         |
+    ----------------------
+
+    ---------------------                                                
+    |      Q Process     |   
+    |--------------------|
+    |     a = a + b      |  
+    |       = 10 + 25    |
+    |       = 35         |
+    |                    |
+    |     b = 25         |
+    ----------------------
+
+     ---------------------                                                
+    |      Q Process     |   
+    |--------------------|
+    |     a = 35         |
+    |                    |
+    |     b = b + 15     |
+    |       = 25 + 15    |
+    |       = 40         |
+    ----------------------
+
+
+    ----------------------                                               
+    |      R Process      |   
+    |---------------------|
+    |     a = (a*b) + 20  |  
+    |       = 35 * 25 + 20|
+    |       = 875 + 20    |
+    |       = 895         |
+    |                     |
+    |     b = 25          |
+    ----------------------
+
+
+     ---------------------                                                
+    |      P Process     |   
+    |--------------------|
+    |     a = 10         |  
+    |                    |
+    |     b = a + b - 5  |
+    |       = 10 + 25 - 5|
+    |       = 35 - 5     |
+    |       = 30         |
+    ----------------------
+
+no there is no change in the order of execution. every time the parent's process values is displayed first then the values from the first child process created and finally the value from the second child process.

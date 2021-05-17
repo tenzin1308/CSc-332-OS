@@ -1,0 +1,22 @@
+
+To prevent the race condition, we created the semaphore and initialize it to 1.
+Since balance file is being shared between father and 2 sons. we placed a semaphore, P(mutex), at the 
+beginning of father process for it to prevent overwritting by other processes.
+Once the father process is done updating, we free the balance resource by using V(mutex),
+similarly, when the son1 or son2 process is accessing the balance resource we need to use the semaphore P(mutex),
+for it to able to use that resource and other processes to wait till the son1 or son2 finished using it. in other word
+we are preventing other process to use the same resource while one process is using that resource.
+
+
+Secondly, if we changed the value of N_Att from 20 to any positive integer LESS THAN 20, we see that the final 
+Balance in the balance file is more than 0, as the amount of money added by father is more than the amount withdrawn
+By the sons. 
+
+But if we increase the value of N_Att for MORE THAN 20 and keeping rest same we see the program 
+Goes into INFINITE loop as the son processes try to withdraw money but as balance becomes 0 after the 20 attempt and
+As there is no money to be withdraw, the value of attempt in the attempt file never decrease, thus resulting in the infinite loop.
+
+
+The dad process has to waits in a queue for 8 times
+The son 1 process has to waits in a queue 11 times
+The son 2 process has to waits in a queue 15 times 
